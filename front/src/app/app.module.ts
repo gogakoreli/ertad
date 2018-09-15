@@ -16,6 +16,7 @@ import { RoomComponent } from './components/room/room.component';
 import { TransactionCreateComponent } from './components/transaction-create/transaction-create.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { LoginGuard } from './guards/login.guard';
+import { NotificationService } from './services/notification.service';
 import { UserService } from './services/user.service';
 import { SharedModule } from './shared/shared.module';
 
@@ -43,7 +44,7 @@ const config: SocketIoConfig = { url: environment.wsUrl, options: {} };
     SharedModule,
     SocketIoModule.forRoot(config),
   ],
-  providers: [UserService, LoginGuard],
+  providers: [UserService, LoginGuard, NotificationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
