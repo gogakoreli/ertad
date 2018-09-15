@@ -21,6 +21,6 @@ export class LoginComponent implements OnInit {
   save() {
     // TODO : save username
     console.log(this.form.value);
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/dashboard');
   }
 }

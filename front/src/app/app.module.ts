@@ -11,6 +11,7 @@ import { InviteFriendsComponent } from './components/invite-friends/invite-frien
 import { LoginComponent } from './components/login/login.component';
 import { RoomListComponent } from './components/room-list/room-list.component';
 import { RoomComponent } from './components/room/room.component';
+import { TransactionCreateComponent } from './components/transaction-create/transaction-create.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { SharedModule } from './shared/shared.module';
 
@@ -25,6 +26,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3500', options: {} };
     RoomListComponent,
     InviteFriendsComponent,
     RoomComponent,
+    TransactionCreateComponent,
   ],
   imports: [
     BrowserModule,

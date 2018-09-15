@@ -5,6 +5,7 @@ import { InviteFriendsComponent } from './components/invite-friends/invite-frien
 import { LoginComponent } from './components/login/login.component';
 import { RoomListComponent } from './components/room-list/room-list.component';
 import { RoomComponent } from './components/room/room.component';
+import { TransactionCreateComponent } from './components/transaction-create/transaction-create.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 
 const routes: Routes = [
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'room-list', component: RoomListComponent },
   { path: 'invite-friends', component: InviteFriendsComponent },
   { path: 'room/:roomId', component: RoomComponent },
+  { path: 'transaction-create/:roomId', component: TransactionCreateComponent },
   { path: '**', redirectTo: '' },
 ];
 

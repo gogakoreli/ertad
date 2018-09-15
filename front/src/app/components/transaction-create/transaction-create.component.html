@@ -1,0 +1,20 @@
+<app-card title="Create Transaction">
+  <form [formGroup]="form"
+    (ngSubmit)="save()"
+    fxLayout="column">
+
+    <app-camera (amount)="amountChanged($event)"></app-camera>
+
+    <mat-form-field>
+      <input matInput
+        placeholder="Amount"
+        type="number"
+        formControlName="amount">
+    </mat-form-field>
+
+    <button mat-raised-button
+      color="primary">
+      Save
+    </button>
+  </form>
+</app-card>
