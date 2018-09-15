@@ -23,6 +23,7 @@ export interface Payout {
 
 export interface Room {
   id: string;
+  name: string;
   status: 'open' | 'closed';
   host: User;
   users: User[];
@@ -47,6 +48,7 @@ export interface CreateUser {
 
 export interface CreateRoom {
   type: 'CreateRoom';
+  name: string;
   roomId: string;
   host: User;
 }

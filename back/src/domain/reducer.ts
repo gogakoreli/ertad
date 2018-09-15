@@ -21,6 +21,7 @@ export function reducer(state: State, action: Action): State {
           ...state.rooms,
           [action.roomId]: {
             id: action.roomId,
+            name: action.name,
             status: 'open',
             host: action.host,
             balances: { [action.host.id]: 0 },
