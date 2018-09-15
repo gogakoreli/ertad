@@ -5,6 +5,7 @@ import {
   getUserById,
   listRooms,
   listUsers,
+  getRoomById,
 } from './domain';
 
 const router: Router = Router();
@@ -32,7 +33,7 @@ router.get('/rooms', (_, res) => {
 });
 
 router.get('/rooms/:id', (req, res) => {
-  const room = getUserById(req.params.id);
+  const room = getRoomById(req.params.id);
 
   if (room === null || room === undefined) {
     return res.status(404).json({ message: 'Not Found' });
