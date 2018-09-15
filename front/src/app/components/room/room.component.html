@@ -28,16 +28,31 @@
       </mat-list-item>
       <mat-divider></mat-divider>
     </ng-container>
+    <mat-list-item>
+      <span>
+        <strong>Total</strong>
+      </span>
+      <div fxFlex></div>
+      <span style="color: #F44336">
+        <strong>30.50</strong>
+      </span>
+    </mat-list-item>
   </mat-list>
 
   <div fxLayout="row"
     fxLayoutGap="20px">
+    <button mat-stroked-button
+      color="warn"
+      (click)="addTransaction()">
+      <mat-icon>clear</mat-icon>
+      Close
+    </button>
 
     <button mat-stroked-button
       color="primary"
       (click)="addTransaction()">
       <mat-icon>add_box</mat-icon>
-      Add Transaction
+      Add
     </button>
   </div>
 </app-card>
