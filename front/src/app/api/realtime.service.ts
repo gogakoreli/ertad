@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Room } from './api-model';
 import { ApiService } from './api.service';
-import { Action } from './types';
+import { Action, User } from './types';
 
 @Injectable({
   providedIn: "root"
@@ -12,6 +11,7 @@ import { Action } from './types';
 export class RealtimeService {
   action$: Observable<Action>;
   room$: Observable<Room>;
+  users$: Observable<User>;
 
   constructor(private socket: Socket, private api: ApiService) {
     console.log(socket);
@@ -20,8 +20,15 @@ export class RealtimeService {
     const action = this.socket.fromEvent("actions") as any;
     this.action$ = action;
 
+    const users = this.socket.fromEvent("users") as any;
+    this.users$ = users;
+
     this.action$.subscribe(x => {
       console.log("action", x);
+    });
+
+    this.users$.subscribe(xs => {
+      console.log("users", xs);
     });
 
     this.forRoom(1).subscribe(x => {
