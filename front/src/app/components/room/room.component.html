@@ -2,8 +2,11 @@
   <mat-list>
     <ng-container *ngFor="let member of members">
       <mat-list-item>
-        <mat-icon color="primary">face</mat-icon>
-        <span>{{ member.name }}</span>
+        <mat-icon color="accent"
+          *ngIf="member.name == 'Sandro'">star</mat-icon>
+        <mat-icon color="primary"
+          *ngIf="member.name != 'Sandro'">face</mat-icon>
+        <span style="margin-left: 10px">{{ member.name }}</span>
         <div fxFlex></div>
         <mat-icon color="primary">check</mat-icon>
       </mat-list-item>
