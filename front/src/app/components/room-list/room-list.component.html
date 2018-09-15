@@ -1,7 +1,8 @@
 <app-card title="Room List">
   <ng-container *ngFor="let room of rooms">
     <button mat-stroked-button
-      color="primary">
+      color="primary"
+      (click)="goToRoom(room)">
       <mat-icon>rowing</mat-icon>
       {{ room.name }}
     </button>

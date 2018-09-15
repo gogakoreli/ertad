@@ -9,6 +9,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InviteFriendsComponent } from './components/invite-friends/invite-friends.component';
 import { LoginComponent } from './components/login/login.component';
 import { RoomListComponent } from './components/room-list/room-list.component';
+import { RoomComponent } from './components/room/room.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { SharedModule } from './shared/shared.module';
 
@@ -20,6 +21,7 @@ import { SharedModule } from './shared/shared.module';
     DashboardComponent,
     RoomListComponent,
     InviteFriendsComponent,
+    RoomComponent,
   ],
   imports: [
     BrowserModule,

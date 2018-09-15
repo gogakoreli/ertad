@@ -1,0 +1,43 @@
+<app-card title="{{ room.name }}">
+  <mat-list>
+    <ng-container *ngFor="let member of members">
+      <mat-list-item>
+        <mat-icon color="primary">face</mat-icon>
+        <span>{{ member.username }}</span>
+        <div fxFlex></div>
+        <mat-icon color="primary">check</mat-icon>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </ng-container>
+  </mat-list>
+
+  <mat-card-title fxLayoutAlign="center center">
+    Transactions
+  </mat-card-title>
+
+  <mat-list>
+    <ng-container *ngFor="let transaction of transactions">
+      <mat-list-item>
+        <span>
+          {{ transaction.user.username }}
+        </span>
+        <div fxFlex></div>
+        <span>
+          {{ transaction.amount }}
+        </span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </ng-container>
+  </mat-list>
+
+  <div fxLayout="row"
+    fxLayoutGap="20px">
+
+    <button mat-stroked-button
+      color="primary"
+      routerLink="/room-list">
+      <mat-icon>add_box</mat-icon>
+      Add Transaction
+    </button>
+  </div>
+</app-card>
