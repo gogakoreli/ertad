@@ -1,1 +1,22 @@
-/* You can add global styles to this file, and also import other style files */
+html,
+body {
+  margin: 0px;
+  height: 100%;
+}
+
+app-root {
+  display: flex;
+  height: 100%;
+  router-outlet {
+    display: none;
+  }
+  router-outlet + * {
+    flex: 1;
+  }
+}
+
+mat-card {
+  .card-content {
+    padding: 20px;
+  }
+}

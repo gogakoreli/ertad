@@ -1,10 +1,22 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { InviteFriendsComponent } from './components/invite-friends/invite-friends.component';
+import { LoginComponent } from './components/login/login.component';
+import { RoomListComponent } from './components/room-list/room-list.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: '', component: WelcomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'room-list', component: RoomListComponent },
+  { path: 'invite-friends', component: InviteFriendsComponent },
+  { path: '**', redirectTo: '' },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

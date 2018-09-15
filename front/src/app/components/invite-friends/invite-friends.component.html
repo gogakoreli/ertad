@@ -1,0 +1,39 @@
+<app-card title="Invite Friends">
+  <form [formGroup]="form"
+    (ngSubmit)="save()"
+    fxLayout="column"
+    fxLayoutGap="20px">
+    <mat-form-field>
+      <input matInput
+        placeholder="Room Name"
+        formControlName="roomName">
+    </mat-form-field>
+
+    <div fxLayout="column"
+      fxLayoutGap="20px"
+      formGroupName="friends">
+      <div *ngFor="let friend of friends"
+        fxLayout="row"
+        fxLayoutGap="20px">
+        <button fxFlex
+          mat-stroked-button
+          color="primary"
+          type="button"
+          (click)="checkCheckbox(checkbox, friend)">
+          <mat-icon>face</mat-icon>
+          {{ friend.username }}
+        </button>
+        <mat-checkbox #checkbox
+          fxLayoutAlign="start center"
+          color="primary"
+          [formControlName]="friend.username"></mat-checkbox>
+      </div>
+    </div>
+
+    <button mat-raised-button
+      color="primary"
+      type="submit">
+      Next
+    </button>
+  </form>
+</app-card>
