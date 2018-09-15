@@ -13,12 +13,6 @@ router.get('/', (_, res) => {
   res.json({ text: 'Hello World' });
 });
 
-router.post('/action', (req, res) => {
-  const action = req.body;
-  res.json({ message: 'OK' });
-  addAction(action);
-});
-
 router.get('/users', (_, res) => {
   res.json(listUsers());
 });

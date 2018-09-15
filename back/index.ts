@@ -3,7 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import sio from 'socket.io';
 import { controller } from './src/controller';
-import { actions$ } from './src/domain';
+import { addAction } from './src/domain';
 
 const app = express();
 const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3500;
@@ -22,6 +22,16 @@ io.on('connection', function(socket) {
   console.log('a user connected');
 });
 
-actions$.subscribe(action => {
-  io.emit('action', action);
+app.post('/action', (req, res) => {
+  const action = req.body;
+  addAction(io)(action);
+  res.json({ message: 'OK' });
+});
+
+app.post('/actions', (req, res) => {
+  const actions: any[] = req.body;
+  for (const action of actions) {
+    addAction(io)(action);
+  }
+  res.json({ message: 'OK' });
 });

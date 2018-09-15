@@ -2,29 +2,31 @@ import { Observable, Subject } from 'rxjs';
 import { onErrorResumeNext, scan } from 'rxjs/operators';
 import { reducer } from './reducer';
 import {
-    Action,
-    Room,
-    State,
-    User
-    } from './types';
+  Action,
+  Room,
+  State,
+  User
+  } from './types';
 
 const actions = new Subject<Action>();
 
-export const actions$: Observable<Action> = actions;
-
-const initialState = { users: {}, rooms: {} };
-
 let state: State = { users: {}, rooms: {} };
 
-const state$ = actions.pipe(scan(reducer, initialState));
-
-state$.subscribe(newState => {
-  state = newState;
-});
-
-export function addAction(action: Action) {
+export const addAction = io => (action: Action) => {
   actions.next(action);
-}
+  state = reducer(state, action);
+
+  if (
+    action.type === 'CreateRoom' ||
+    action.type === 'AddGuest' ||
+    action.type === 'AddReceipt' ||
+    action.type === 'CloseRoom'
+  ) {
+    io.emit('rooms/' + action.roomId, state.rooms[action.roomId]);
+  }
+
+  io.emit('actions', action);
+};
 
 export function listUsers(): User[] {
   return Object.values(state.users);
