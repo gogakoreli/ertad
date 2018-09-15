@@ -1,12 +1,17 @@
-<form>
+<form [formGroup]="form"
+  (ngSubmit)="save()"
+  fxFlex
+  fxLayout="column"
+  fxLayoutGap="20px"
+  fxLayoutAlign="center center">
   <mat-form-field>
     <input matInput
-      placeholder="Favorite food"
-      value="Sushi">
+      placeholder="Username"
+      formControlName="username">
   </mat-form-field>
 
-  <mat-form-field>
-    <textarea matInput
-      placeholder="Leave a comment"></textarea>
-  </mat-form-field>
+  <button mat-raised-button
+    color="primary">
+    Login
+  </button>
 </form>
