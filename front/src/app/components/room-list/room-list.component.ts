@@ -21,7 +21,7 @@ export class RoomListComponent implements OnInit {
   constructor(
     private router: Router,
     private api: ApiService,
-    private user: UserService,
+    public user: UserService,
     private realtime: RealtimeService,
   ) {}
 
