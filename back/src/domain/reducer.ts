@@ -7,147 +7,66 @@ export function reducer(state: State, action: Action): State {
     case 'Init':
       return { users: {}, rooms: {} };
     case 'CreateUser':
-      return {
-        ...state,
-        users: {
-          ...state.users,
-          [action.user.id]: action.user,
-        },
-      };
+      state.users[action.user.id] = { ...action.user };
+      return state;
     case 'CreateRoom':
-      return {
-        ...state,
-        rooms: {
-          ...state.rooms,
-          [action.roomId]: {
-            id: action.roomId,
-            name: action.name,
-            status: 'open',
-            host: action.host,
-            balances: { [action.host.id]: 0 },
-            users: [action.host],
-            invitationStatuses: ['accepted'],
-            receipts: [],
-          },
-        },
+      state.rooms[action.roomId] = {
+        id: action.roomId,
+        name: action.name,
+        status: 'open',
+        host: action.host,
+        balances: { [action.host.id]: 0 },
+        users: [{ ...action.host }],
+        invitations: {},
+        receipts: [],
       };
+      return state;
     case 'AddGuest':
-      return {
-        ...state,
-        rooms: {
-          ...state.rooms,
-          [action.roomId]: {
-            ...state.rooms[action.roomId],
-            balances: {
-              ...state.rooms[action.roomId].balances,
-              [action.guest.id]: 0,
-            },
-            users: [...state.rooms[action.roomId].users, action.guest],
-            invitationStatuses: [
-              ...state.rooms[action.roomId].invitationStatuses,
-              'pending',
-            ],
-          },
-        },
-      };
+      const room = state.rooms[action.roomId];
+      room.users.push({ ...action.guest });
+      room.balances[action.guest.id] = 0;
+      room.invitations[action.guest.id] = 'pending';
+      return state;
+    case 'AddGuests':
+      const room_ = state.rooms[action.roomId];
+      action.guests.forEach(user => {
+        room_.users.push({ ...user });
+        room_.balances[user.id] = 0;
+        room_.invitations[user.id] = 'pending';
+      });
+      return state;
     case 'AcceptInvite':
-      const index1 = R.findIndex(
-        x => x.id === action.guest.id,
-        state.rooms[action.roomId].users,
-      );
-      const statuses1 = [...state.rooms[action.roomId].invitationStatuses];
-      statuses1[index1] = 'accepted';
-      return {
-        ...state,
-        rooms: {
-          ...state.rooms,
-          [action.roomId]: {
-            ...state.rooms[action.roomId],
-            balances: {
-              ...state.rooms[action.roomId].balances,
-              [action.guest.id]: 0,
-            },
-            invitationStatuses: statuses1,
-            users: [...state.rooms[action.roomId].users, action.guest],
-          },
-        },
-      };
+      const room2 = state.rooms[action.roomId];
+      room2.invitations[action.guest.id] = 'accepted';
+      return state;
     case 'RejectInvite':
-      const index2 = R.findIndex(
-        x => x.id === action.guest.id,
-        state.rooms[action.roomId].users,
-      );
-      const statuses2 = [...state.rooms[action.roomId].invitationStatuses];
-      statuses2[index2] = 'rejected';
-      return {
-        ...state,
-        rooms: {
-          ...state.rooms,
-          [action.roomId]: {
-            ...state.rooms[action.roomId],
-            balances: {
-              ...state.rooms[action.roomId].balances,
-              [action.guest.id]: 0,
-            },
-            invitationStatuses: statuses2,
-            users: [...state.rooms[action.roomId].users, action.guest],
-          },
-        },
-      };
+      const room3 = state.rooms[action.roomId];
+      room3.invitations[action.guest.id] = 'rejected';
+      return state;
     case 'AddReceipt':
+      const room4 = state.rooms[action.roomId];
       const userId = action.receipt.user.id;
-      return {
-        ...state,
-        rooms: {
-          ...state.rooms,
-          [action.roomId]: {
-            ...state.rooms[action.roomId],
-            balances: {
-              ...state.rooms[action.roomId].balances,
-              [userId]:
-                state.rooms[action.roomId].balances[userId] +
-                action.receipt.amount,
-            },
-            receipts: [action.receipt, ...state.rooms[action.roomId].receipts],
-          },
-        },
-      };
+      room4.balances[userId] += action.receipt.amount;
+      room4.receipts.push({ ...action.receipt });
+      return state;
     case 'PayPayout':
-      const index3 = R.findIndex(
+      const room5 = state.rooms[action.roomId];
+      const index5 = R.findIndex(
         x => x.id === action.payoutId,
-        state.rooms[action.roomId].payouts || [],
+        room5.payouts || [],
       );
-      const payouts = [...(state.rooms[action.roomId].payouts || [])];
-      payouts[index3] = {
-        ...payouts[index3],
-        status: 'paid',
-      };
-      return {
-        ...state,
-        rooms: {
-          ...state.rooms,
-          [action.roomId]: {
-            ...state.rooms[action.roomId],
-            payouts,
-          },
-        },
-      };
+      const payouts = state.rooms[action.roomId].payouts || [];
+      payouts[index5].status = 'paid';
+      return state;
     case 'CloseRoom':
-      return {
-        ...state,
-        rooms: {
-          ...state.rooms,
-          [action.roomId]: {
-            ...state.rooms[action.roomId],
-            payouts: calculatePayouts(
-              R.indexBy(u => u.id, state.rooms[action.roomId].users),
-              state.rooms[action.roomId].balances,
-              state.rooms[action.roomId].receipts,
-            ),
-            status: 'closed',
-          },
-        },
-      };
+      const room6 = state.rooms[action.roomId];
+      room6.payouts = calculatePayouts(
+        R.indexBy(u => u.id, room6.users),
+        room6.balances,
+        room6.receipts,
+      );
+      room6.status = 'closed';
+      return state;
     default:
       return state;
   }

@@ -1,5 +1,4 @@
-import { Observable, Subject } from 'rxjs';
-import { onErrorResumeNext, scan } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { reducer } from './reducer';
 import {
   Action,
