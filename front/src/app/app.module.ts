@@ -10,10 +10,11 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InviteFriendsComponent } from './components/invite-friends/invite-friends.component';
 import { LoginComponent } from './components/login/login.component';
 import { RoomListComponent } from './components/room-list/room-list.component';
+import { RoomComponent } from './components/room/room.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { SharedModule } from './shared/shared.module';
 
-const config: SocketIoConfig = { url: "http://localhost:3500", options: {} };
+const config: SocketIoConfig = { url: 'http://localhost:3500', options: {} };
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ const config: SocketIoConfig = { url: "http://localhost:3500", options: {} };
     WelcomeComponent,
     DashboardComponent,
     RoomListComponent,
-    InviteFriendsComponent
+    InviteFriendsComponent,
+    RoomComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,9 +34,9 @@ const config: SocketIoConfig = { url: "http://localhost:3500", options: {} };
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

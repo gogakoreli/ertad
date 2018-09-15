@@ -3,5 +3,11 @@ export interface User {
 }
 
 export interface Room {
+  id: string;
   name: string;
+}
+
+export interface Transaction {
+  user: User;
+  amount: number;
 }

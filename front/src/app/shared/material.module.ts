@@ -7,7 +7,11 @@ import { PlatformModule } from '@angular/cdk/platform';
 import { PortalModule } from '@angular/cdk/portal';
 import { CdkTableModule } from '@angular/cdk/table';
 import { NgModule } from '@angular/core';
-import { MatNativeDateModule, MatRippleModule } from '@angular/material';
+import {
+  MatNativeDateModule,
+  MatRippleModule,
+  MatDividerModule,
+} from '@angular/material';
 import {
   MatAutocompleteModule,
   MatButtonModule,
@@ -83,6 +87,7 @@ import {
     OverlayModule,
     PlatformModule,
     PortalModule,
+    MatDividerModule,
   ],
 })
 export class MaterialModule {}

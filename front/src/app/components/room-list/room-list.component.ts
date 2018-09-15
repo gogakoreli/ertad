@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Room } from 'src/app/api/api-model';
 
 @Component({
@@ -9,13 +10,20 @@ import { Room } from 'src/app/api/api-model';
 export class RoomListComponent implements OnInit {
   rooms: Room[] = [
     {
+      id: 'Sandros Birthday Party',
       name: 'Sandros Birthday Party',
     },
     {
+      id: 'Go Jomardoba',
       name: 'Go Jomardoba',
     },
   ];
-  constructor() {}
+
+  constructor(private router: Router) {}
 
   ngOnInit() {}
+
+  goToRoom(room: Room) {
+    this.router.navigateByUrl(`room/${room.id}`);
+  }
 }
