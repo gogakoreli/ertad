@@ -1,4 +1,5 @@
 import R from 'ramda';
+import uuid from 'uuid/v4';
 import { Payout, Receipt, User } from './types';
 
 // TODO: remove receipts
@@ -35,6 +36,7 @@ export function splitsToPayouts(
 
     if (jVal.split + iVal.split > 0) {
       payouts.push({
+        id: uuid(),
         from: users[jVal.id],
         to: users[iVal.id],
         amount: -iVal.split,
@@ -47,6 +49,7 @@ export function splitsToPayouts(
       jVal.split += iVal.split;
     } else if (jVal.split + iVal.split < 0) {
       payouts.push({
+        id: uuid(),
         from: users[jVal.id],
         to: users[iVal.id],
         amount: jVal.split,
@@ -60,6 +63,7 @@ export function splitsToPayouts(
     } else if (iVal.split != 0) {
       // equals, but not zero
       payouts.push({
+        id: uuid(),
         from: users[jVal.id],
         to: users[iVal.id],
         amount: jVal.split,
