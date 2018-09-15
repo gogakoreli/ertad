@@ -1,17 +1,16 @@
-<form [formGroup]="form"
-  (ngSubmit)="save()"
-  fxFlex
-  fxLayout="column"
-  fxLayoutGap="20px"
-  fxLayoutAlign="center center">
-  <mat-form-field>
-    <input matInput
-      placeholder="Username"
-      formControlName="username">
-  </mat-form-field>
+<app-card title="Login">
+  <form [formGroup]="form"
+    (ngSubmit)="save()"
+    fxLayout="column">
+    <mat-form-field>
+      <input matInput
+        placeholder="Username"
+        formControlName="username">
+    </mat-form-field>
 
-  <button mat-raised-button
-    color="primary">
-    Login
-  </button>
-</form>
+    <button mat-raised-button
+      color="primary">
+      Login
+    </button>
+  </form>
+</app-card>
