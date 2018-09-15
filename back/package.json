@@ -6,6 +6,7 @@
     "dev": "nodemon",
     "lint": "tslint --project .",
     "build": "tsc",
+    "start": "node build/index.js",
     "production": "node build/index.js"
   },
   "dependencies": {
