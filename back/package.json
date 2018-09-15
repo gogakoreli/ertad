@@ -10,12 +10,17 @@
     "production": "node build/index.js"
   },
   "dependencies": {
+    "@types/ramda": "^0.25.38",
+    "@types/socket.io": "^1.4.38",
     "body-parser": "^1.18.2",
     "command-line-args": "^5.0.2",
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "moment": "^2.22.2",
+    "ramda": "^0.25.0",
+    "rxjs": "^6.3.2",
+    "socket.io": "^2.1.1",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
