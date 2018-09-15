@@ -8,4 +8,8 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent {
   constructor(private user: UserService) {}
+
+  logout() {
+    this.user.logout();
+  }
 }

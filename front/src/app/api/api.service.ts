@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Action } from './types';
+import { Action, User } from './types';
 
 const apiUrl = environment.apiUrl;
 
@@ -20,7 +20,7 @@ export class ApiService {
   }
 
   listUsers() {
-    return this.http.get(apiUrl + 'users');
+    return this.http.get<User[]>(apiUrl + 'users');
   }
 
   addAction(action: Action) {

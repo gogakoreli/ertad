@@ -3,6 +3,8 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material';
 import { Router } from '@angular/router';
 import { User } from 'src/app/api/types';
+import { ApiService } from '../../api/api.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-invite-friends',
@@ -11,22 +13,14 @@ import { User } from 'src/app/api/types';
 })
 export class InviteFriendsComponent implements OnInit {
   form: FormGroup;
-  friends: User[] = [
-    {
-      name: 'dybala',
-      id: 'dybala',
-    },
-    {
-      name: 'dele',
-      id: 'dele',
-    },
-    {
-      name: 'griezman',
-      id: 'griezman',
-    },
-  ];
+  friends: User[] = [];
 
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private api: ApiService,
+    private user: UserService,
+  ) {}
 
   ngOnInit() {
     const friendsObject = this.friends.reduce((prev, curr) => {
@@ -38,6 +32,13 @@ export class InviteFriendsComponent implements OnInit {
       roomName: new FormControl('viyot_ertad'),
       friends: this.fb.group(friendsObject),
     });
+
+    this.refresh();
+  }
+
+  async refresh() {
+    const friends = await this.api.listUsers().toPromise();
+    this.friends = friends.filter(x => x.id !== this.user.me.id);
   }
 
   checkCheckbox(checkbox: MatCheckbox, friend: User) {
