@@ -16,20 +16,23 @@ const guest2: User = {
 };
 
 export const actions: Action[] = [
-  { type: 'CreateRoom', id: '1', host: host },
-  { type: 'AddGuest', guest: guest1 },
-  { type: 'AddGuest', guest: guest2 },
+  { type: 'CreateRoom', roomId: '1', host: host },
+  { type: 'AddGuest', roomId: '1', guest: guest1 },
+  { type: 'AddGuest', roomId: '1', guest: guest2 },
   {
     type: 'AddReceipt',
+    roomId: '1',
     receipt: { user: host, amount: 10, imageUrl: 'image' },
   },
   {
     type: 'AddReceipt',
+    roomId: '1',
     receipt: { user: guest1, amount: 15, imageUrl: 'image' },
   },
   {
     type: 'AddReceipt',
+    roomId: '1',
     receipt: { user: guest2, amount: 20, imageUrl: 'image' },
   },
-  { type: 'CloseRoom' },
+  { type: 'CloseRoom', roomId: '1' },
 ];

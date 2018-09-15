@@ -31,6 +31,11 @@ export interface Room {
   payouts?: Payout[];
 }
 
+export interface State {
+  rooms: Record<string, Room>;
+  users: Record<string, User>;
+}
+
 export interface CreateUser {
   type: 'CreateUser';
   user: User;
@@ -38,22 +43,25 @@ export interface CreateUser {
 
 export interface CreateRoom {
   type: 'CreateRoom';
-  id: string;
+  roomId: string;
   host: User;
 }
 
 export interface AddGuest {
   type: 'AddGuest';
+  roomId: string;
   guest: User;
 }
 
 export interface AddReceipt {
   type: 'AddReceipt';
+  roomId: string;
   receipt: Receipt;
 }
 
 export interface CloseRoom {
   type: 'CloseRoom';
+  roomId: string;
 }
 
 export type Action =
