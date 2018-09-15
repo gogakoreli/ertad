@@ -77,10 +77,30 @@ export class InviteFriendsComponent implements OnInit {
     });
   }
 
-  save() {
-    // TODO : save friends list
-    console.log(this.form.value);
-    // this.api.
-    this.router.navigateByUrl('/');
+  async save() {
+    const guests = Object.entries(this.form.value.friends)
+      .filter(([_, value]) => value)
+      .map(([key, _]) => {
+        return { id: key, name: key };
+      });
+
+    await this.api
+      .addAction({
+        type: 'CreateRoom',
+        host: this.user.me,
+        name: this.form.value.roomName,
+        roomId: this.form.value.roomName,
+      })
+      .toPromise();
+
+    await this.api
+      .addAction({
+        type: 'AddGuests',
+        roomId: this.form.value.roomName,
+        guests,
+      })
+      .toPromise();
+
+    this.router.navigateByUrl(`/room/${this.form.value.roomName}`);
   }
 }

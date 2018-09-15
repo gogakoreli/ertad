@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Room } from 'src/app/api/types';
+import { ApiService } from '../../api/api.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-room-list',
@@ -8,20 +10,22 @@ import { Room } from 'src/app/api/types';
   styleUrls: ['./room-list.component.scss'],
 })
 export class RoomListComponent implements OnInit {
-  rooms: any[] = [
-    {
-      id: 'Sandros Birthday Party',
-      name: 'Sandros Birthday Party',
-    },
-    {
-      id: 'Go Jomardoba',
-      name: 'Go Jomardoba',
-    },
-  ];
+  rooms: Room[] = [];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private api: ApiService,
+    private user: UserService,
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.loadItems();
+  }
+
+  async loadItems() {
+    const rooms = await this.api.listRooms().toPromise();
+    this.rooms = rooms.filter(x => x.users.find(y => y.id === this.user.me.id));
+  }
 
   goToRoom(room: Room) {
     this.router.navigateByUrl(`room/${room.id}`);
