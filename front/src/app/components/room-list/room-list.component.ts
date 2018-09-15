@@ -6,6 +6,7 @@ import { Room, User } from 'src/app/api/types';
 import { ApiService } from '../../api/api.service';
 import { RealtimeService } from '../../api/realtime.service';
 import { UserService } from '../../services/user.service';
+import { isPendingMember, isRejectedMember } from '../../utils/utils';
 
 @Component({
   selector: 'app-room-list',
@@ -31,7 +32,7 @@ export class RoomListComponent implements OnInit {
         filter(x => x.type === 'CreateRoom' || x.type === 'CloseRoom'),
         takeUntil(this.unsubscribe$),
       )
-      .subscribe(rooms => {
+      .subscribe(x => {
         this.loadItems();
       });
   }
@@ -51,9 +52,9 @@ export class RoomListComponent implements OnInit {
     const roomsWithStatus: RoomWithStatus[] = rooms.map(room => {
       return {
         ...room,
-        isPending: this.isMember(room, this.user.me),
+        isPending: isPendingMember(room, this.user.me),
 
-        isRejected: this.isRejected(room, this.user.me),
+        isRejected: isRejectedMember(room, this.user.me),
       };
     });
 
@@ -61,25 +62,6 @@ export class RoomListComponent implements OnInit {
       x.users.find(y => y.id === this.user.me.id),
     );
   }
-
-  isMember(room: Room, user: User) {
-    const invitation = room.invitations[user.id];
-    return (
-      room.users.find(x => x.id === user.id) &&
-      invitation &&
-      invitation === 'pending'
-    );
-  }
-
-  isRejected(room: Room, user: User) {
-    const invitation = room.invitations[user.id];
-    return (
-      room.users.find(x => x.id === user.id) &&
-      invitation &&
-      invitation === 'rejected'
-    );
-  }
-
   goToRoom(room: RoomWithStatus) {
     if (room.isPending) {
       this.router.navigateByUrl(`${room.id}/invitation`);
