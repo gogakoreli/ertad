@@ -1,0 +1,21 @@
+<app-card>
+  <h3>
+    {{ host.username + ' გიწვევს ოთახში ' + room.name }}
+  </h3>
+  <div fxLayout="row"
+    fxLayoutGap="20px">
+    <button mat-stroked-button
+      color="primary"
+      (click)="yes()">
+      <!-- <mat-icon>people</mat-icon> -->
+      Yes
+    </button>
+
+    <button mat-stroked-button
+      color="warn"
+      (click)="no()">
+      <!-- <mat-icon>meeting_room</mat-icon> -->
+      No
+    </button>
+  </div>
+</app-card>

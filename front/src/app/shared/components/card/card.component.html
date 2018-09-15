@@ -1,6 +1,7 @@
 <mat-card>
   <mat-card-content>
-    <mat-card-title fxLayoutAlign="center center">
+    <mat-card-title *ngIf="title"
+      fxLayoutAlign="center center">
       {{ title }}
     </mat-card-title>
     <div fxLayout="column"
