@@ -15,4 +15,4 @@ services:
     container_name: ertad-production-back
     restart: always
     ports:
-      - "3500:3500"
+      - "8080:3500"

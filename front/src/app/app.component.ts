@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RealtimeService } from './api/realtime.service';
 import { UserService } from './services/user.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { UserService } from './services/user.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private user: UserService) {}
+  constructor(private user: UserService, private realtime: RealtimeService) {}
 
   logout() {
     this.user.logout();

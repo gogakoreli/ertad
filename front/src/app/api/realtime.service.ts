@@ -6,7 +6,7 @@ import { ApiService } from './api.service';
 import { Action, User } from './types';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root',
 })
 export class RealtimeService {
   action$: Observable<Action>;
@@ -17,31 +17,31 @@ export class RealtimeService {
     console.log(socket);
     socket.connect();
 
-    const action = this.socket.fromEvent("actions") as any;
+    const action = this.socket.fromEvent('actions') as any;
     this.action$ = action;
 
-    const users = this.socket.fromEvent("users") as any;
+    const users = this.socket.fromEvent('users') as any;
     this.users$ = users;
 
     this.action$.subscribe(x => {
-      console.log("action", x);
+      console.log('action', x);
     });
 
     this.users$.subscribe(xs => {
-      console.log("users", xs);
+      console.log('users', xs);
     });
 
-    this.forRoom("1").subscribe(x => {
-      console.log("rooms/1", x);
+    this.forRoom('1').subscribe(x => {
+      console.log('rooms/1', x);
     });
 
     this.api.listUsers().subscribe(x => {
-      console.log("users", x);
+      console.log('users', x);
     });
   }
 
   forRoom(roomId: string) {
-    const x = this.socket.fromEvent("rooms/" + roomId) as any;
+    const x = this.socket.fromEvent('rooms/' + roomId) as any;
     return x as Observable<Room>;
   }
 }
