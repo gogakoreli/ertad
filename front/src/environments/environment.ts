@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: ['http://ertad.sdolidze.ge:8080/'][0],
-  wsUrl: ['ws://ertad.sdolidze.ge:8080/'][0],
+  apiUrl: ['http://ertad-api.sdolidze.ge/'][0],
+  wsUrl: ['ws://ertad-api.sdolidze.ge/'][0],
 };
 
 /*
