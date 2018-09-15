@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material';
 import { Router } from '@angular/router';
-import { User } from 'src/app/api/api-model';
+import { User } from 'src/app/api/types';
 
 @Component({
   selector: 'app-invite-friends',
@@ -13,13 +13,16 @@ export class InviteFriendsComponent implements OnInit {
   form: FormGroup;
   friends: User[] = [
     {
-      username: 'dybala',
+      name: 'dybala',
+      id: 'dybala',
     },
     {
-      username: 'dele',
+      name: 'dele',
+      id: 'dele',
     },
     {
-      username: 'griezman',
+      name: 'griezman',
+      id: 'griezman',
     },
   ];
 
@@ -27,7 +30,7 @@ export class InviteFriendsComponent implements OnInit {
 
   ngOnInit() {
     const friendsObject = this.friends.reduce((prev, curr) => {
-      prev[curr.username] = false;
+      prev[curr.name] = false;
       return prev;
     }, {});
 
@@ -42,7 +45,7 @@ export class InviteFriendsComponent implements OnInit {
     const checked = checkbox.checked;
     this.form.patchValue({
       friends: {
-        [friend.username]: checked,
+        [friend.name]: checked,
       },
     });
   }

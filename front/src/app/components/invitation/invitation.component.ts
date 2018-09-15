@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Room, User } from 'src/app/api/api-model';
+import { Room, User } from 'src/app/api/types';
 
 @Component({
   selector: 'app-invitation',
@@ -9,10 +9,11 @@ import { Room, User } from 'src/app/api/api-model';
 })
 export class InvitationComponent implements OnInit {
   host: User = {
-    username: 'Sdolidze',
+    id: 'sdolidze',
+    name: 'Sdolidze',
   };
 
-  room: Room = {
+  room: any = {
     id: 'Go Jomardoba',
     name: 'Go Jomardoba',
   };

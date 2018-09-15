@@ -14,6 +14,8 @@ import { RoomListComponent } from './components/room-list/room-list.component';
 import { RoomComponent } from './components/room/room.component';
 import { TransactionCreateComponent } from './components/transaction-create/transaction-create.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { LoginGuard } from './guards/login.guard';
+import { UserService } from './services/user.service';
 import { SharedModule } from './shared/shared.module';
 
 const config: SocketIoConfig = { url: 'http://localhost:3500', options: {} };
@@ -40,7 +42,7 @@ const config: SocketIoConfig = { url: 'http://localhost:3500', options: {} };
     SharedModule,
     SocketIoModule.forRoot(config),
   ],
-  providers: [],
+  providers: [UserService, LoginGuard],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
