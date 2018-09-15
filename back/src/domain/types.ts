@@ -12,6 +12,7 @@ export interface Receipt {
 }
 
 export interface Payout {
+  id: string;
   from: User;
   to: User;
   status: 'pending' | 'paid' | 'rejected';
@@ -80,6 +81,13 @@ export interface CloseRoom {
   roomId: string;
 }
 
+export interface PayPayout {
+  type: 'PayPayout';
+  roomId: string;
+  payoutId: string;
+  user: User;
+}
+
 export type Action =
   | Init
   | CreateUser
@@ -88,4 +96,5 @@ export type Action =
   | AcceptInvite
   | RejectInvite
   | AddReceipt
-  | CloseRoom;
+  | CloseRoom
+  | PayPayout;

@@ -112,6 +112,26 @@ export function reducer(state: State, action: Action): State {
           },
         },
       };
+    case 'PayPayout':
+      const index3 = R.findIndex(
+        x => x.id === action.payoutId,
+        state.rooms[action.roomId].payouts || [],
+      );
+      const payouts = [...(state.rooms[action.roomId].payouts || [])];
+      payouts[index3] = {
+        ...payouts[index3],
+        status: 'paid',
+      };
+      return {
+        ...state,
+        rooms: {
+          ...state.rooms,
+          [action.roomId]: {
+            ...state.rooms[action.roomId],
+            payouts,
+          },
+        },
+      };
     case 'CloseRoom':
       return {
         ...state,

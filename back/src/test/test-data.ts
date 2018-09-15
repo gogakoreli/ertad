@@ -41,6 +41,7 @@ export const actions: Action[] = [
     receipt: { user: guest2, amount: 20, imageUrl: 'image' },
   },
   { type: 'CloseRoom', roomId: '1' },
+  { type: 'PayPayout', roomId: '1', payoutId: '1', user: host },
 ];
 
 console.log(JSON.stringify(actions, null, 4));
