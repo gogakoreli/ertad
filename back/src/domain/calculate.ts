@@ -1,6 +1,7 @@
 import R from 'ramda';
 import { Payout, Receipt, User } from './types';
 
+// TODO: remove receipts
 export function calculatePayouts(
   users: Record<string, User>,
   balances: Record<string, number>,
@@ -21,12 +22,6 @@ export function splitsToPayouts(
   users: Record<string, User>,
   splits_: { id: string; split: number }[],
 ) {
-  splits_ = [
-    { id: '0', split: -5 },
-    { id: '1', split: -2 },
-    { id: '2', split: 7 },
-  ];
-
   let splits = R.sortBy(x => x.split, splits_);
 
   let i = 0;

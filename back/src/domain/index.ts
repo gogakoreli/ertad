@@ -1,5 +1,5 @@
 import { Observable, Subject } from 'rxjs';
-import { scan } from 'rxjs/operators';
+import { onErrorResumeNext, scan } from 'rxjs/operators';
 import { reducer } from './reducer';
 import {
   Action,
@@ -8,9 +8,12 @@ import {
   User
   } from './types';
 
-export const actions = new Subject<Action>();
+const actions = new Subject<Action>();
+
+export const actions$: Observable<Action> = actions;
 
 const initialState = { users: {}, rooms: {} };
+
 let state: State = { users: {}, rooms: {} };
 
 const state$ = actions.pipe(scan(reducer, initialState));
@@ -19,13 +22,15 @@ state$.subscribe(newState => {
   state = newState;
 });
 
-export function add(action: Action) {}
+export function add(action: Action) {
+  actions.next(action);
+}
 
 export function listUsers(): User[] {
   return Object.values(state.users);
 }
 
-export function usernameExits(username: string) {
+export function usernameExists(username: string) {
   return username in state.users;
 }
 
