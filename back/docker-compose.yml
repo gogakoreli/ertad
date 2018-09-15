@@ -1,8 +1,0 @@
-version: '3'
-services:
-  api:
-    build: .
-    image: ertad-production-api:latest
-    container_name: ertad-production-api
-    ports:
-      - '3500:3500'
