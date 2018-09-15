@@ -25,7 +25,7 @@ export interface Room {
   status: 'open' | 'closed';
   host: User;
   users: User[];
-  invitationStatuses: InvitationStatus[];
+  invitations: Record<string, InvitationStatus>;
   balances: Record<string, number>;
   receipts: Receipt[];
   payouts?: Payout[];

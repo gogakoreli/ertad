@@ -17,7 +17,7 @@ export function reducer(state: State, action: Action): State {
         host: action.host,
         balances: { [action.host.id]: 0 },
         users: [{ ...action.host }],
-        invitationStatuses: ['accepted'],
+        invitations: {},
         receipts: [],
       };
       return state;
@@ -25,25 +25,23 @@ export function reducer(state: State, action: Action): State {
       const room = state.rooms[action.roomId];
       room.users.push({ ...action.guest });
       room.balances[action.guest.id] = 0;
-      room.invitationStatuses.push('pending');
+      room.invitations[action.guest.id] = 'pending';
       return state;
     case 'AddGuests':
       const room_ = state.rooms[action.roomId];
       action.guests.forEach(user => {
         room_.users.push({ ...user });
         room_.balances[user.id] = 0;
-        room_.invitationStatuses.push('pending');
+        room_.invitations[user.id] = 'pending';
       });
       return state;
     case 'AcceptInvite':
       const room2 = state.rooms[action.roomId];
-      const index1 = R.findIndex(x => x.id === action.guest.id, room2.users);
-      room2.invitationStatuses[index1] = 'accepted';
+      room2.invitations[action.guest.id] = 'accepted';
       return state;
     case 'RejectInvite':
       const room3 = state.rooms[action.roomId];
-      const index2 = R.findIndex(x => x.id === action.guest.id, room3.users);
-      room3.invitationStatuses[index2] = 'rejected';
+      room3.invitations[action.guest.id] = 'rejected';
       return state;
     case 'AddReceipt':
       const room4 = state.rooms[action.roomId];
