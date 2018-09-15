@@ -9,10 +9,10 @@ import { Room } from 'src/app/api/api-model';
 export class RoomListComponent implements OnInit {
   rooms: Room[] = [
     {
-      name: 'Sandro',
+      name: 'Sandros Birthday Party',
     },
     {
-      name: 'Gelda',
+      name: 'Go Jomardoba',
     },
   ];
   constructor() {}

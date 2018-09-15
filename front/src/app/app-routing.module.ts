@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { InviteFriendsComponent } from './components/invite-friends/invite-friends.component';
 import { LoginComponent } from './components/login/login.component';
 import { RoomListComponent } from './components/room-list/room-list.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
@@ -10,6 +11,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'room-list', component: RoomListComponent },
+  { path: 'invite-friends', component: InviteFriendsComponent },
   { path: '**', redirectTo: '' },
 ];
 
