@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { User } from 'src/app/api/types';
 import { ApiService } from '../../api/api.service';
+import { RealtimeService } from '../../api/realtime.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -15,26 +18,45 @@ export class InviteFriendsComponent implements OnInit {
   form: FormGroup;
   friends: User[] = [];
 
+  unsubscribe$ = new Subject<any>();
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private api: ApiService,
     private user: UserService,
+    private realtime: RealtimeService,
   ) {}
 
   async ngOnInit() {
-    this.initializeForm();
-    await this.refresh();
-    this.initializeForm();
+    this.initializeForm([]);
+    await this.loadItems();
+
+    this.realtime.users$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(friends => {
+        this.setupFriends(friends);
+      });
   }
 
-  async refresh() {
-    const friends = await this.api.listUsers().toPromise();
-    this.friends = friends.filter(x => x.id !== this.user.me.id);
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
-  initializeForm() {
-    const friendsObject = this.friends.reduce((prev, curr) => {
+  async loadItems() {
+    let friends = await this.api.listUsers().toPromise();
+    this.setupFriends(friends);
+  }
+
+  setupFriends(friends: User[]) {
+    friends = friends.filter(x => x.id !== this.user.me.id);
+    this.initializeForm(friends);
+    this.friends = friends;
+  }
+
+  initializeForm(friends: User[]) {
+    const friendsObject = friends.reduce((prev, curr) => {
       prev[curr.id] = false;
       return prev;
     }, {});
@@ -58,6 +80,7 @@ export class InviteFriendsComponent implements OnInit {
   save() {
     // TODO : save friends list
     console.log(this.form.value);
+    // this.api.
     this.router.navigateByUrl('/');
   }
 }

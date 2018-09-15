@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { Observable } from 'rxjs';
-import { Room } from './api-model';
 import { ApiService } from './api.service';
-import { Action, User } from './types';
+import { Action, Room, User } from './types';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +10,7 @@ import { Action, User } from './types';
 export class RealtimeService {
   action$: Observable<Action>;
   room$: Observable<Room>;
-  users$: Observable<User>;
+  users$: Observable<User[]>;
 
   constructor(private socket: Socket, private api: ApiService) {
     console.log(socket);
