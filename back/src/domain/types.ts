@@ -36,6 +36,10 @@ export interface State {
   users: Record<string, User>;
 }
 
+export interface Init {
+  type: 'Init';
+}
+
 export interface CreateUser {
   type: 'CreateUser';
   user: User;
@@ -65,6 +69,7 @@ export interface CloseRoom {
 }
 
 export type Action =
+  | Init
   | CreateUser
   | CreateRoom
   | AddGuest

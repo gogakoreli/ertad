@@ -16,6 +16,7 @@ const guest2: User = {
 };
 
 export const actions: Action[] = [
+  { type: 'Init' },
   { type: 'CreateRoom', roomId: '1', host: host },
   { type: 'AddGuest', roomId: '1', guest: guest1 },
   { type: 'AddGuest', roomId: '1', guest: guest2 },

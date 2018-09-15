@@ -4,6 +4,8 @@ import { Action, State } from './types';
 
 export function reducer(state: State, action: Action): State {
   switch (action.type) {
+    case 'Init':
+      return { users: {}, rooms: {} };
     case 'CreateUser':
       return {
         ...state,
