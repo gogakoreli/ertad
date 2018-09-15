@@ -1,0 +1,31 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  .logo-button {
+    font-size: 24px;
+    padding: 8px 16px;
+    mat-icon {
+      font-size: 32px;
+      width: auto;
+      height: auto;
+    }
+  }
+  .logo-icon {
+    height: 16px;
+    width: 16px;
+  }
+}
+
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
