@@ -10,7 +10,7 @@ import { UserService } from './services/user.service';
 })
 export class AppComponent {
   constructor(
-    private user: UserService,
+    public user: UserService,
     private realtime: RealtimeService,
     private notification: NotificationService,
   ) {}
