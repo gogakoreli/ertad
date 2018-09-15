@@ -10,12 +10,13 @@ body {
 
 app-root {
   padding: 5px;
-  height: 100%;
+  min-height: 100%;
   router-outlet {
     display: none;
   }
   router-outlet + * {
     flex: 1;
+    padding-bottom: 80px;
   }
 }
 
