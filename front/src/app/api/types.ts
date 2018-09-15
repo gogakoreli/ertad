@@ -25,7 +25,7 @@ export interface Room {
   status: 'open' | 'closed';
   host: User;
   users: User[];
-  invitationStatuses: InvitationStatus[];
+  invitations: Record<string, InvitationStatus>;
   balances: Record<string, number>;
   receipts: Receipt[];
   payouts?: Payout[];
@@ -56,6 +56,12 @@ export interface AddGuest {
   type: 'AddGuest';
   roomId: string;
   guest: User;
+}
+
+export interface AddGuests {
+  type: 'AddGuests';
+  roomId: string;
+  guests: User[];
 }
 
 export interface AcceptInvite {
@@ -93,6 +99,7 @@ export type Action =
   | CreateUser
   | CreateRoom
   | AddGuest
+  | AddGuests
   | AcceptInvite
   | RejectInvite
   | AddReceipt
