@@ -9,11 +9,17 @@ import {
 
 const actions = new Subject<Action>();
 
+export const debugActions: Action[] = [];
+
 let state: State = { users: {}, rooms: {} };
+
+export const debugState = () => state;
 
 export const addAction = io => (action: Action) => {
   actions.next(action);
   state = reducer(state, action);
+
+  debugActions.push(action);
 
   if (action.type === 'CreateUser') {
     io.emit('users', Object.values(state.users));

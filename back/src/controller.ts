@@ -1,10 +1,10 @@
 import { Router } from 'express';
 import {
-  addAction,
+  debugActions,
+  debugState,
   getUserById,
   listRooms,
   listUsers,
-  getRoomById,
 } from './domain';
 
 const router: Router = Router();
@@ -39,6 +39,14 @@ router.get('/rooms/:id', (req, res) => {
   } else {
     res.json(room);
   }
+});
+
+router.get('/debug/actions', (_, res) => {
+  res.json(debugActions);
+});
+
+router.get('/debug/state', (_, res) => {
+  res.json(debugState());
 });
 
 export const controller: Router = router;
