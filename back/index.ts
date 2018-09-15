@@ -14,8 +14,9 @@ app.get('/', (_, res) => {
   res.json({ text: 'Hello World' });
 });
 
-app.post('/action', (_, res) => {
-  const action = res.body;
+app.post('/action', (req, res) => {
+  const action = req.body;
+  res.json({ message: 'OK' });
   add(action);
 });
 
