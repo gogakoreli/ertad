@@ -1,0 +1,13 @@
+{
+  "defaultSeverity": "error",
+  "extends": ["tslint:recommended"],
+  "jsRules": {},
+  "rules": {
+    "no-console": false,
+    "max-line-length": false, // We don't want a strict rule, prettier has a soft rule of 80 lines
+    "object-literal-sort-keys": false,
+    "quotemark": false, // Prettier handles it, it's single quote for the most part
+    "arrow-parens": false
+  },
+  "rulesDirectory": []
+}
