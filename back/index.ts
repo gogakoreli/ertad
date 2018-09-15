@@ -3,7 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import http from 'http';
 import sio from 'socket.io';
-import { STREAM } from './src/domain';
+import { actions } from './src/domain';
 
 const app = express();
 const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3500;
@@ -22,10 +22,10 @@ io.on('connection', function(socket) {
 
 app.post('/action', (_, res) => {
   const action = res.body;
-  STREAM.next(action);
+  actions.next(action);
 });
 
-STREAM.subscribe(action => {
+actions.subscribe(action => {
   io.emit('action', action);
 });
 

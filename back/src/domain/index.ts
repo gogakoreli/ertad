@@ -1,42 +1,42 @@
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { scan } from 'rxjs/operators';
 import { reducer } from './reducer';
-import { Action, Room, User } from './types';
+import {
+  Action,
+  Room,
+  State,
+  User
+  } from './types';
 
-export const STREAM = new Subject<Action>();
+export const actions = new Subject<Action>();
 
-const rooms: Record<string, Room> = {};
-const users: Record<string, User> = {};
+const initialState = { users: {}, rooms: {} };
+let state: State = { users: {}, rooms: {} };
 
-STREAM.subscribe(action => {
-  if (action.type === 'CreateUser') {
-    users[action.user.id] = action.user;
-  }
-});
+const state$ = actions.pipe(scan(reducer, initialState));
 
-STREAM.subscribe(action => {
-  if (action.type === 'CreateUser') {
-    users[action.user.id] = action.user;
-  }
+state$.subscribe(newState => {
+  state = newState;
 });
 
 export function add(action: Action) {}
 
 export function listUsers(): User[] {
-  return Object.values(users);
+  return Object.values(state.users);
 }
 
 export function usernameExits(username: string) {
-  return username in users;
+  return username in state.users;
 }
 
 export function getUserById(id: string): User {
-  return users[id];
+  return state.users[id];
 }
 
 export function listRooms(): Room[] {
-  return Object.values(rooms);
+  return Object.values(state.rooms);
 }
 
 export function getRoomById(id: string): Room {
-  return rooms[id];
+  return state.rooms[id];
 }
