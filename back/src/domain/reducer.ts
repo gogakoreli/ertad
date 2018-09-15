@@ -26,6 +26,7 @@ export function reducer(state: State, action: Action): State {
             host: action.host,
             balances: { [action.host.id]: 0 },
             users: [action.host],
+            invitationStatuses: ['accepted'],
             receipts: [],
           },
         },
@@ -41,6 +42,54 @@ export function reducer(state: State, action: Action): State {
               ...state.rooms[action.roomId].balances,
               [action.guest.id]: 0,
             },
+            users: [...state.rooms[action.roomId].users, action.guest],
+            invitationStatuses: [
+              ...state.rooms[action.roomId].invitationStatuses,
+              'pending',
+            ],
+          },
+        },
+      };
+    case 'AcceptInvite':
+      const index1 = R.findIndex(
+        x => x.id === action.guest.id,
+        state.rooms[action.roomId].users,
+      );
+      const statuses1 = [...state.rooms[action.roomId].invitationStatuses];
+      statuses1[index1] = 'accepted';
+      return {
+        ...state,
+        rooms: {
+          ...state.rooms,
+          [action.roomId]: {
+            ...state.rooms[action.roomId],
+            balances: {
+              ...state.rooms[action.roomId].balances,
+              [action.guest.id]: 0,
+            },
+            invitationStatuses: statuses1,
+            users: [...state.rooms[action.roomId].users, action.guest],
+          },
+        },
+      };
+    case 'RejectInvite':
+      const index2 = R.findIndex(
+        x => x.id === action.guest.id,
+        state.rooms[action.roomId].users,
+      );
+      const statuses2 = [...state.rooms[action.roomId].invitationStatuses];
+      statuses2[index2] = 'rejected';
+      return {
+        ...state,
+        rooms: {
+          ...state.rooms,
+          [action.roomId]: {
+            ...state.rooms[action.roomId],
+            balances: {
+              ...state.rooms[action.roomId].balances,
+              [action.guest.id]: 0,
+            },
+            invitationStatuses: statuses2,
             users: [...state.rooms[action.roomId].users, action.guest],
           },
         },

@@ -23,6 +23,8 @@ export const actions: Action[] = [
   { type: 'CreateRoom', name: 'Ertad', roomId: '1', host: host },
   { type: 'AddGuest', roomId: '1', guest: guest1 },
   { type: 'AddGuest', roomId: '1', guest: guest2 },
+  { type: 'AcceptInvite', roomId: '1', guest: guest1 },
+  { type: 'AcceptInvite', roomId: '1', guest: guest2 },
   {
     type: 'AddReceipt',
     roomId: '1',

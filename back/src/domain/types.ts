@@ -3,10 +3,7 @@ export interface User {
   name: string;
 }
 
-export interface RoomUser {
-  user: User;
-  splitStatus: 'pending' | 'paid' | 'rejected';
-}
+export type InvitationStatus = 'pending' | 'accepted' | 'rejected';
 
 export interface Receipt {
   user: User;
@@ -27,6 +24,7 @@ export interface Room {
   status: 'open' | 'closed';
   host: User;
   users: User[];
+  invitationStatuses: InvitationStatus[];
   balances: Record<string, number>;
   receipts: Receipt[];
   payouts?: Payout[];
@@ -59,6 +57,18 @@ export interface AddGuest {
   guest: User;
 }
 
+export interface AcceptInvite {
+  type: 'AcceptInvite';
+  roomId: string;
+  guest: User;
+}
+
+export interface RejectInvite {
+  type: 'RejectInvite';
+  roomId: string;
+  guest: User;
+}
+
 export interface AddReceipt {
   type: 'AddReceipt';
   roomId: string;
@@ -75,5 +85,7 @@ export type Action =
   | CreateUser
   | CreateRoom
   | AddGuest
+  | AcceptInvite
+  | RejectInvite
   | AddReceipt
   | CloseRoom;
