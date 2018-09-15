@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
 import { Room, User } from 'src/app/api/types';
 import { ApiService } from '../../api/api.service';
+import { RealtimeService } from '../../api/realtime.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -12,19 +15,39 @@ import { UserService } from '../../services/user.service';
 export class RoomListComponent implements OnInit {
   rooms: RoomWithStatus[] = [];
 
+  unsubscribe$ = new Subject<any>();
+
   constructor(
     private router: Router,
     private api: ApiService,
     private user: UserService,
+    private realtime: RealtimeService,
   ) {}
 
   ngOnInit() {
     this.loadItems();
+    this.realtime.action$
+      .pipe(
+        filter(x => x.type === 'CreateRoom' || x.type === 'CloseRoom'),
+        takeUntil(this.unsubscribe$),
+      )
+      .subscribe(rooms => {
+        this.loadItems();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   async loadItems() {
     const rooms = await this.api.listRooms().toPromise();
 
+    this.setupRooms(rooms);
+  }
+
+  setupRooms(rooms: Room[]) {
     const roomsWithStatus: RoomWithStatus[] = rooms.map(room => {
       return {
         ...room,
