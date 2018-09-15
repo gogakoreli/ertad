@@ -16,6 +16,10 @@ export const addAction = io => (action: Action) => {
   actions.next(action);
   state = reducer(state, action);
 
+  if (action.type === 'CreateUser') {
+    io.emit('users', Object.values(state.users));
+  }
+
   if (
     action.type === 'CreateRoom' ||
     action.type === 'AddGuest' ||
