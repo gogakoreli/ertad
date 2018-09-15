@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
+import { RoomListComponent } from './components/room-list/room-list.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { SharedModule } from './shared/shared.module';
 
@@ -16,6 +17,7 @@ import { SharedModule } from './shared/shared.module';
     LoginComponent,
     WelcomeComponent,
     DashboardComponent,
+    RoomListComponent,
   ],
   imports: [
     BrowserModule,
