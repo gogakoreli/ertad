@@ -23,9 +23,17 @@ export function reducer(state: State, action: Action): State {
       return state;
     case 'AddGuest':
       const room = state.rooms[action.roomId];
-      room.balances[action.guest.id] = 0;
       room.users.push({ ...action.guest });
+      room.balances[action.guest.id] = 0;
       room.invitationStatuses.push('pending');
+      return state;
+    case 'AddGuests':
+      const room_ = state.rooms[action.roomId];
+      action.guests.forEach(user => {
+        room_.users.push({ ...user });
+        room_.balances[user.id] = 0;
+        room_.invitationStatuses.push('pending');
+      });
       return state;
     case 'AcceptInvite':
       const room2 = state.rooms[action.roomId];
