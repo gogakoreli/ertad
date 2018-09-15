@@ -84,8 +84,6 @@ export class InviteFriendsComponent implements OnInit {
         return { id: key, name: key };
       });
 
-    console.log(guests);
-
     await this.api
       .addAction({
         type: 'CreateRoom',

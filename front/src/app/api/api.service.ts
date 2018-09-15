@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Action, User } from './types';
+import { Action, Room, User } from './types';
 
 const apiUrl = environment.apiUrl;
 
@@ -12,7 +12,7 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   listRooms() {
-    return this.http.get(apiUrl + 'rooms');
+    return this.http.get<Room[]>(apiUrl + 'rooms');
   }
 
   getRoomById(id: string) {
