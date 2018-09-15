@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
+import { environment } from '../environments/environment';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -18,7 +19,7 @@ import { LoginGuard } from './guards/login.guard';
 import { UserService } from './services/user.service';
 import { SharedModule } from './shared/shared.module';
 
-const config: SocketIoConfig = { url: 'http://localhost:3500', options: {} };
+const config: SocketIoConfig = { url: environment.wsUrl, options: {} };
 
 @NgModule({
   declarations: [

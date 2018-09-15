@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: ['https://back-rzydejmbez.now.sh/'][0],
+  wsUrl: ['wss://back-rzydejmbez.now.sh/'][0],
 };
 
 /*
