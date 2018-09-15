@@ -55,4 +55,8 @@ export class RoomComponent implements OnInit {
 
     this.form = this.fb.group({});
   }
+
+  addTransaction() {
+    this.router.navigateByUrl(`transaction-create/${this.roomId}`);
+  }
 }

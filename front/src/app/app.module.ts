@@ -7,10 +7,12 @@ import { SocketIoConfig, SocketIoModule } from 'ngx-socket-io';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { InvitationComponent } from './components/invitation/invitation.component';
 import { InviteFriendsComponent } from './components/invite-friends/invite-friends.component';
 import { LoginComponent } from './components/login/login.component';
 import { RoomListComponent } from './components/room-list/room-list.component';
 import { RoomComponent } from './components/room/room.component';
+import { TransactionCreateComponent } from './components/transaction-create/transaction-create.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { SharedModule } from './shared/shared.module';
 
@@ -25,6 +27,8 @@ const config: SocketIoConfig = { url: 'http://localhost:3500', options: {} };
     RoomListComponent,
     InviteFriendsComponent,
     RoomComponent,
+    TransactionCreateComponent,
+    InvitationComponent,
   ],
   imports: [
     BrowserModule,

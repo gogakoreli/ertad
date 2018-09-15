@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+
+.camera-input {
+  display: none;
+}
+button {
+  margin-bottom: 20px;
+}
+img {
+  width: 200px;
+  margin: 0px auto 20px;
+}

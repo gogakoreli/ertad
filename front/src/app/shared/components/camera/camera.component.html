@@ -1,0 +1,16 @@
+<input #camera
+  type="file"
+  accept="image/*"
+  capture="camera"
+  class="camera-input"
+  (change)="change($event)">
+<button mat-stroked-button
+  color="primary"
+  type="button"
+  (click)="takePicture(camera)">
+  <mat-icon>add_a_photo</mat-icon>
+  Take Picture
+</button>
+
+<img *ngIf="pictureSrc"
+  [src]="pictureSrc">
