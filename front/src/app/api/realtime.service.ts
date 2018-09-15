@@ -31,7 +31,7 @@ export class RealtimeService {
       console.log("users", xs);
     });
 
-    this.forRoom(1).subscribe(x => {
+    this.forRoom("1").subscribe(x => {
       console.log("rooms/1", x);
     });
 
