@@ -22,9 +22,20 @@ export class InviteFriendsComponent implements OnInit {
     private user: UserService,
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.initializeForm();
+    await this.refresh();
+    this.initializeForm();
+  }
+
+  async refresh() {
+    const friends = await this.api.listUsers().toPromise();
+    this.friends = friends.filter(x => x.id !== this.user.me.id);
+  }
+
+  initializeForm() {
     const friendsObject = this.friends.reduce((prev, curr) => {
-      prev[curr.name] = false;
+      prev[curr.id] = false;
       return prev;
     }, {});
 
@@ -32,13 +43,6 @@ export class InviteFriendsComponent implements OnInit {
       roomName: new FormControl('viyot_ertad'),
       friends: this.fb.group(friendsObject),
     });
-
-    this.refresh();
-  }
-
-  async refresh() {
-    const friends = await this.api.listUsers().toPromise();
-    this.friends = friends.filter(x => x.id !== this.user.me.id);
   }
 
   checkCheckbox(checkbox: MatCheckbox, friend: User) {
