@@ -8,7 +8,7 @@ import { UserService } from './services/user.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(private user: UserService, private realtime: RealtimeService) {}
+  constructor(public user: UserService, private realtime: RealtimeService) {}
 
   logout() {
     this.user.logout();
