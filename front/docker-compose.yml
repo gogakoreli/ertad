@@ -1,0 +1,9 @@
+version: '3'
+services:
+  front:
+    build: ./
+    image: ertad-production-front:latest
+    container_name: ertad-production-front
+    restart: always
+    ports:
+      - '80:80'
