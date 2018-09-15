@@ -17,7 +17,10 @@ const guest2: User = {
 
 export const actions: Action[] = [
   { type: 'Init' },
-  { type: 'CreateRoom', roomId: '1', host: host },
+  { type: 'CreateUser', user: host },
+  { type: 'CreateUser', user: guest1 },
+  { type: 'CreateUser', user: guest2 },
+  { type: 'CreateRoom', name: 'Ertad', roomId: '1', host: host },
   { type: 'AddGuest', roomId: '1', guest: guest1 },
   { type: 'AddGuest', roomId: '1', guest: guest2 },
   {
@@ -37,3 +40,5 @@ export const actions: Action[] = [
   },
   { type: 'CloseRoom', roomId: '1' },
 ];
+
+console.log(JSON.stringify(actions, null, 4));

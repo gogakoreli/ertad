@@ -2,11 +2,11 @@ import { Observable, Subject } from 'rxjs';
 import { onErrorResumeNext, scan } from 'rxjs/operators';
 import { reducer } from './reducer';
 import {
-  Action,
-  Room,
-  State,
-  User
-  } from './types';
+    Action,
+    Room,
+    State,
+    User
+    } from './types';
 
 const actions = new Subject<Action>();
 
@@ -22,7 +22,7 @@ state$.subscribe(newState => {
   state = newState;
 });
 
-export function add(action: Action) {
+export function addAction(action: Action) {
   actions.next(action);
 }
 
