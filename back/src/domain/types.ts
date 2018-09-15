@@ -58,6 +58,12 @@ export interface AddGuest {
   guest: User;
 }
 
+export interface AddGuests {
+  type: 'AddGuests';
+  roomId: string;
+  guests: User[];
+}
+
 export interface AcceptInvite {
   type: 'AcceptInvite';
   roomId: string;
@@ -93,6 +99,7 @@ export type Action =
   | CreateUser
   | CreateRoom
   | AddGuest
+  | AddGuests
   | AcceptInvite
   | RejectInvite
   | AddReceipt
