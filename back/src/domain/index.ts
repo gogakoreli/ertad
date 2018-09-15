@@ -13,6 +13,8 @@ export const debugActions: Action[] = [];
 
 let state: State = { users: {}, rooms: {} };
 
+export const debugState = () => state;
+
 export const addAction = io => (action: Action) => {
   actions.next(action);
   state = reducer(state, action);
