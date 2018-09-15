@@ -16,7 +16,7 @@ export class ApiService {
   }
 
   getRoomById(id: string) {
-    return this.http.get(apiUrl + 'rooms/' + id);
+    return this.http.get<Room>(apiUrl + 'rooms/' + id);
   }
 
   listUsers() {

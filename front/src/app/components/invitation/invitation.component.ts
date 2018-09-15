@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Room, User } from 'src/app/api/types';
+import { ApiService } from '../../api/api.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-invitation',
@@ -8,25 +10,49 @@ import { Room, User } from 'src/app/api/types';
   styleUrls: ['./invitation.component.scss'],
 })
 export class InvitationComponent implements OnInit {
-  host: User = {
-    id: 'sdolidze',
-    name: 'Sdolidze',
-  };
+  roomId: string;
+  host: User;
 
-  room: any = {
-    id: 'Go Jomardoba',
-    name: 'Go Jomardoba',
-  };
+  room: Room;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private api: ApiService,
+    private user: UserService,
+  ) {}
 
-  ngOnInit() {}
+  async ngOnInit() {
+    this.roomId = this.route.snapshot.params.roomId;
+    this.room = await this.api.getRoomById(this.roomId).toPromise();
+    this.host = this.room.host;
+  }
 
-  yes() {
+  async yes() {
+    await this.api
+      .addAction({
+        type: 'AcceptInvite',
+        guest: {
+          id: this.user.me.id,
+          name: this.user.me.name,
+        },
+        roomId: this.roomId,
+      })
+      .toPromise();
     this.router.navigateByUrl(`room/${this.room.id}`);
   }
 
-  no() {
+  async no() {
+    await this.api
+      .addAction({
+        type: 'RejectInvite',
+        guest: {
+          id: this.user.me.id,
+          name: this.user.me.name,
+        },
+        roomId: this.roomId,
+      })
+      .toPromise();
     this.router.navigateByUrl('/dashboard');
   }
 }

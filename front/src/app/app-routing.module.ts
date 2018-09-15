@@ -39,7 +39,7 @@ const routes: Routes = [
     canActivate: [LoginGuard],
   },
   {
-    path: 'invitation',
+    path: ':roomId/invitation',
     component: InvitationComponent,
     canActivate: [LoginGuard],
   },

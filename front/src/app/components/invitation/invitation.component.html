@@ -1,7 +1,10 @@
-<app-card>
-  <h3>
-    {{ host.name + ' გიწვევს ოთახში ' + room.name }}
-  </h3>
+<app-card *ngIf="room">
+  <span class="invitation-text">
+    <b>{{ room.host.name }}</b>
+    <span> invites you to </span>
+    <b>{{ room.name }}</b>
+  </span>
+
   <div fxLayout="row"
     fxLayoutGap="20px"
     fxLayoutAlign="center center">

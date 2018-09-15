@@ -1,8 +1,9 @@
 <app-card title="Room List">
   <ng-container *ngFor="let room of rooms">
     <button mat-stroked-button
-      color="primary"
-      (click)="goToRoom(room)">
+      (click)="goToRoom(room)"
+      [color]="room.isPending? 'accent' : 'primary'"
+      [disabled]="room.isRejected">
       <mat-icon>rowing</mat-icon>
       {{ room.name }}
     </button>
