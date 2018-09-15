@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: ['https://back-rzydejmbez.now.sh/'][0],
-  wsUrl: ['wss://back-rzydejmbez.now.sh/'][0],
+  apiUrl: ['http://ertad.sdolidze.ge:8080/'][0],
+  wsUrl: ['ws://ertad.sdolidze.ge:8080/'][0],
 };
 
 /*
