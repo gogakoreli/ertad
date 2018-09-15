@@ -26,7 +26,7 @@ export function reducer(state: State, action: Action): State {
             host: action.host,
             balances: { [action.host.id]: 0 },
             users: [action.host],
-            invitationStatues: ['accepted'],
+            invitationStatuses: ['accepted'],
             receipts: [],
           },
         },
@@ -43,8 +43,8 @@ export function reducer(state: State, action: Action): State {
               [action.guest.id]: 0,
             },
             users: [...state.rooms[action.roomId].users, action.guest],
-            invitationStatues: [
-              ...state.rooms[action.roomId].invitationStatues,
+            invitationStatuses: [
+              ...state.rooms[action.roomId].invitationStatuses,
               'pending',
             ],
           },
@@ -55,7 +55,7 @@ export function reducer(state: State, action: Action): State {
         x => x.id === action.guest.id,
         state.rooms[action.roomId].users,
       );
-      const statuses1 = [...state.rooms[action.roomId].invitationStatues];
+      const statuses1 = [...state.rooms[action.roomId].invitationStatuses];
       statuses1[index1] = 'accepted';
       return {
         ...state,
@@ -67,7 +67,7 @@ export function reducer(state: State, action: Action): State {
               ...state.rooms[action.roomId].balances,
               [action.guest.id]: 0,
             },
-            invitationStatues: statuses1,
+            invitationStatuses: statuses1,
             users: [...state.rooms[action.roomId].users, action.guest],
           },
         },
@@ -77,7 +77,7 @@ export function reducer(state: State, action: Action): State {
         x => x.id === action.guest.id,
         state.rooms[action.roomId].users,
       );
-      const statuses2 = [...state.rooms[action.roomId].invitationStatues];
+      const statuses2 = [...state.rooms[action.roomId].invitationStatuses];
       statuses2[index2] = 'rejected';
       return {
         ...state,
@@ -89,7 +89,7 @@ export function reducer(state: State, action: Action): State {
               ...state.rooms[action.roomId].balances,
               [action.guest.id]: 0,
             },
-            invitationStatues: statuses2,
+            invitationStatuses: statuses2,
             users: [...state.rooms[action.roomId].users, action.guest],
           },
         },
