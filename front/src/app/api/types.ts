@@ -3,7 +3,7 @@ export interface User {
   name: string;
 }
 
-export type InvitationStatus = "pending" | "accepted" | "rejected";
+export type InvitationStatus = 'pending' | 'accepted' | 'rejected';
 
 export interface Receipt {
   user: User;
@@ -15,14 +15,14 @@ export interface Payout {
   id: string;
   from: User;
   to: User;
-  status: "pending" | "paid" | "rejected";
+  status: 'pending' | 'paid' | 'rejected';
   amount: number;
 }
 
 export interface Room {
   id: string;
   name: string;
-  status: "open" | "closed";
+  status: 'open' | 'closed';
   host: User;
   users: User[];
   invitationStatuses: InvitationStatus[];
@@ -37,52 +37,52 @@ export interface State {
 }
 
 export interface Init {
-  type: "Init";
+  type: 'Init';
 }
 
 export interface CreateUser {
-  type: "CreateUser";
+  type: 'CreateUser';
   user: User;
 }
 
 export interface CreateRoom {
-  type: "CreateRoom";
+  type: 'CreateRoom';
   name: string;
   roomId: string;
   host: User;
 }
 
 export interface AddGuest {
-  type: "AddGuest";
+  type: 'AddGuest';
   roomId: string;
   guest: User;
 }
 
 export interface AcceptInvite {
-  type: "AcceptInvite";
+  type: 'AcceptInvite';
   roomId: string;
   guest: User;
 }
 
 export interface RejectInvite {
-  type: "RejectInvite";
+  type: 'RejectInvite';
   roomId: string;
   guest: User;
 }
 
 export interface AddReceipt {
-  type: "AddReceipt";
+  type: 'AddReceipt';
   roomId: string;
   receipt: Receipt;
 }
 
 export interface CloseRoom {
-  type: "CloseRoom";
+  type: 'CloseRoom';
   roomId: string;
 }
 
 export interface PayPayout {
-  type: "PayPayout";
+  type: 'PayPayout';
   roomId: string;
   payoutId: string;
   user: User;
