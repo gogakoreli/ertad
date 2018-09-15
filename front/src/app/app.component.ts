@@ -8,5 +8,5 @@ import { RealtimeService } from './api/realtime.service';
 })
 export class AppComponent {
   title = "front";
-  constructor(realtime: RealtimeService) {}
+  constructor(private realtime: RealtimeService) {}
 }

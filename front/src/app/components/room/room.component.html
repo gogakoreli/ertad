@@ -3,7 +3,7 @@
     <ng-container *ngFor="let member of members">
       <mat-list-item>
         <mat-icon color="primary">face</mat-icon>
-        <span>{{ member.username }}</span>
+        <span>{{ member.name }}</span>
         <div fxFlex></div>
         <mat-icon color="primary">check</mat-icon>
       </mat-list-item>
@@ -19,7 +19,7 @@
     <ng-container *ngFor="let transaction of transactions">
       <mat-list-item>
         <span>
-          {{ transaction.user.username }}
+          {{ transaction.user.name }}
         </span>
         <div fxFlex></div>
         <span>

@@ -8,16 +8,41 @@ import { RoomListComponent } from './components/room-list/room-list.component';
 import { RoomComponent } from './components/room/room.component';
 import { TransactionCreateComponent } from './components/transaction-create/transaction-create.component';
 import { WelcomeComponent } from './components/welcome/welcome.component';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
-  { path: '', component: WelcomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'room-list', component: RoomListComponent },
-  { path: 'invite-friends', component: InviteFriendsComponent },
-  { path: 'room/:roomId', component: RoomComponent },
-  { path: 'transaction-create/:roomId', component: TransactionCreateComponent },
-  { path: 'invitation', component: InvitationComponent },
+  // { path: '', component: WelcomeComponent },
+  { path: '', component: LoginComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'room-list',
+    component: RoomListComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'invite-friends',
+    component: InviteFriendsComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'room/:roomId',
+    component: RoomComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'transaction-create/:roomId',
+    component: TransactionCreateComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: 'invitation',
+    component: InvitationComponent,
+    canActivate: [LoginGuard],
+  },
   { path: '**', redirectTo: '' },
 ];
 

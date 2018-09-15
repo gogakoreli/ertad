@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Room, Transaction, User } from 'src/app/api/api-model';
+import { Room, User } from 'src/app/api/types';
 
 @Component({
   selector: 'app-room',
@@ -10,21 +10,24 @@ import { Room, Transaction, User } from 'src/app/api/api-model';
 })
 export class RoomComponent implements OnInit {
   roomId: string;
-  room: Room;
+  room: any;
   form: FormGroup;
   members: User[] = [
     {
-      username: 'Goga',
+      name: 'Goga',
+      id: 'Goga',
     },
     {
-      username: 'Sandro',
+      name: 'Sandro',
+      id: 'Sandro',
     },
     {
-      username: 'Giorgi',
+      name: 'Giorgi',
+      id: 'Giorgi',
     },
   ];
 
-  transactions: Transaction[] = [
+  transactions: any[] = [
     {
       user: {
         username: 'Goga',

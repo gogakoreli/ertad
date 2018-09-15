@@ -21,12 +21,12 @@
           type="button"
           (click)="checkCheckbox(checkbox, friend)">
           <mat-icon>face</mat-icon>
-          {{ friend.username }}
+          {{ friend.name }}
         </button>
         <mat-checkbox #checkbox
           fxLayoutAlign="start center"
           color="primary"
-          [formControlName]="friend.username"></mat-checkbox>
+          [formControlName]="friend.name"></mat-checkbox>
       </div>
     </div>
 
