@@ -17,7 +17,7 @@ export class TransactionCreateComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private api: ApiService
+    private api: ApiService,
     private user: UserService,
   ) {}
 
@@ -36,15 +36,17 @@ export class TransactionCreateComponent implements OnInit {
   }
 
   async save() {
-    await this.api.addAction({
-      type: 'AddReceipt',
-      roomId: this.roomId,
-      receipt: {
-        user: this.user.me,
-        amount: this.form.value.amount,
-        imageUrl: '[fake]',
-      }
-    }).toPromise();
+    await this.api
+      .addAction({
+        type: 'AddReceipt',
+        roomId: this.roomId,
+        receipt: {
+          user: this.user.me,
+          amount: this.form.value.amount,
+          imageUrl: '[fake]',
+        },
+      })
+      .toPromise();
 
     this.router.navigateByUrl(`room/${this.roomId}`);
   }
