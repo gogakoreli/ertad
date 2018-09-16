@@ -9,7 +9,8 @@
     </mat-form-field>
 
     <button mat-raised-button
-      color="primary">
+      color="primary"
+      [disabled]="this.form.invalid">
       Login
     </button>
   </form>
