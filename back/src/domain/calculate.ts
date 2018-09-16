@@ -12,7 +12,7 @@ export function calculatePayouts(
   const totalAmount = receipts.map(x => x.amount).reduce((a, b) => a + b, 0);
   const avg = totalAmount / numUsers;
   const splits_ = R.mapObjIndexed(
-    (val, key) => ({ id: key, split: val - avg }),
+    (val, key) => ({ id: key, split: avg - val }),
     balances,
   );
   const splits = R.values(splits_);
