@@ -1,36 +1,91 @@
-<app-card title="{{ room.name }}">
-  <mat-list>
-    <ng-container *ngFor="let member of members">
+<app-card title="{{ room?.name }}">
+
+  <mat-card-title fxLayoutAlign="center center">
+    <mat-icon>
+      {{ incoming?.length > 0 ? 'call_received' : 'call_made' }}
+    </mat-icon>
+    {{ incoming?.length > 0 ? 'Incoming' : 'Outgoing' }}
+  </mat-card-title>
+
+  <mat-list *ngIf="incoming?.length > 0">
+    <ng-container *ngFor="let payout of incoming">
       <mat-list-item>
-        <mat-icon color="primary">face</mat-icon>
-        <span>{{ member.name }}</span>
-        <div fxFlex></div>
-        <mat-icon color="primary">check</mat-icon>
+        <span>
+          {{ payout.from.name }}
+        </span>
+        <div style="flex: 1;min-width: 50px;"></div>
+
+        <span *ngIf="payout.status === 'paid'"
+          style="color: forestgreen">
+          {{ payout.amount.toFixed(2) }}
+        </span>
+
+        <span *ngIf="payout.status === 'pending'"
+          style="color: goldenrod">
+          {{ payout.amount.toFixed(2) }}
+        </span>
+
+        <span *ngIf="payout.status === 'rejected'"
+          style="color: firebrick">
+          {{ payout.amount.toFixed(2) }}
+        </span>
+
       </mat-list-item>
       <mat-divider></mat-divider>
     </ng-container>
+    <mat-list-item>
+      <span>
+        <strong>Total Paid</strong>
+      </span>
+      <div fxFlex></div>
+      <span style="color: forestgreen">
+        <strong>{{ (totalAmount(incoming, true) || 0).toFixed(2) }}</strong>
+      </span>
+    </mat-list-item>
   </mat-list>
 
-  <mat-list>
-    <ng-container *ngFor="let transaction of transactions">
+  <mat-list *ngIf="outgoing?.length > 0">
+    <ng-container *ngFor="let payout of outgoing">
       <mat-list-item>
         <span>
-          {{ transaction.user.name }}
+          {{ payout.to.name }}
         </span>
-        <div fxFlex></div>
-        <span>
-          {{ transaction.amount }}
+        <div style="flex: 1;min-width: 50px;"></div>
+        <span style="color: #F44336">
+          {{ payout.amount.toFixed(2) }}
         </span>
       </mat-list-item>
       <mat-divider></mat-divider>
     </ng-container>
+    <mat-list-item>
+      <span>
+        <strong>Total</strong>
+      </span>
+      <div fxFlex></div>
+      <span style="color: #F44336">
+        <strong>{{ (totalAmount(outgoing) || 0).toFixed(2) }}</strong>
+      </span>
+    </mat-list-item>
   </mat-list>
 
   <button mat-stroked-button
     color="primary"
-    (click)="pay()">
+    (click)="pay()"
+    *ngIf="outgoing?.length > 0"
+    [disabled]="alreadyPaid">
     <mat-icon>fingerprint</mat-icon>
     Pay
   </button>
 
+  <button mat-stroked-button
+    color="primary"
+    *ngIf="incoming?.length > 0"
+    routerLink="/dashboard">
+    <mat-icon>home</mat-icon>
+    Dashboard
+  </button>
+
+  <div *ngIf="alreadyPaid"
+    matTooltip="Completed"
+    class="corner"></div>
 </app-card>
