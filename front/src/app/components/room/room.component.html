@@ -41,14 +41,16 @@
       </span>
       <div fxFlex></div>
       <span style="color: #F44336">
-        <strong>{{ totalAmount(room) }}</strong>
+        <strong>{{ (totalAmount(room) || 0).toFixed(2) }}</strong>
       </span>
     </mat-list-item>
   </mat-list>
 
   <div fxLayout="row"
-    fxLayoutGap="20px">
+    fxLayoutGap="20px"
+    fxLayoutAlign="center center">
     <button mat-stroked-button
+      *ngIf="room.host.id === user.me.id"
       color="warn"
       (click)="closeRoom()">
       <mat-icon>clear</mat-icon>

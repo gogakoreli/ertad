@@ -6,6 +6,7 @@ import { flatMap, takeUntil } from 'rxjs/operators';
 import { Room, User } from 'src/app/api/types';
 import { ApiService } from '../../api/api.service';
 import { RealtimeService } from '../../api/realtime.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-room',
@@ -26,6 +27,7 @@ export class RoomComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private realtime: RealtimeService,
     private api: ApiService,
+    public user: UserService,
   ) {}
 
   async ngOnInit() {
