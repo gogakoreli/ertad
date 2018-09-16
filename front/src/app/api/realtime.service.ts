@@ -9,11 +9,9 @@ import { Action, Room, User } from './types';
 })
 export class RealtimeService {
   action$: Observable<Action>;
-  room$: Observable<Room>;
   users$: Observable<User[]>;
 
   constructor(private socket: Socket, private api: ApiService) {
-    console.log(socket);
     socket.connect();
 
     const action = this.socket.fromEvent('actions') as any;
@@ -21,26 +19,5 @@ export class RealtimeService {
 
     const users = this.socket.fromEvent('users') as any;
     this.users$ = users;
-
-    this.action$.subscribe(x => {
-      console.log('action', x);
-    });
-
-    this.users$.subscribe(xs => {
-      console.log('users', xs);
-    });
-
-    this.forRoom('1').subscribe(x => {
-      console.log('rooms/1', x);
-    });
-
-    this.api.listUsers().subscribe(x => {
-      console.log('users', x);
-    });
-  }
-
-  forRoom(roomId: string) {
-    const x = this.socket.fromEvent('rooms/' + roomId) as any;
-    return x as Observable<Room>;
   }
 }
