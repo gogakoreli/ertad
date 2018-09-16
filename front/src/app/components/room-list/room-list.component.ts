@@ -6,7 +6,11 @@ import { Room, User } from 'src/app/api/types';
 import { ApiService } from '../../api/api.service';
 import { RealtimeService } from '../../api/realtime.service';
 import { UserService } from '../../services/user.service';
-import { isPendingMember, isRejectedMember } from '../../utils/utils';
+import {
+  isPendingMember,
+  isRejectedMember,
+  isRoomCompleted,
+} from '../../utils/utils';
 
 @Component({
   selector: 'app-room-list',
@@ -55,6 +59,7 @@ export class RoomListComponent implements OnInit {
         isPending: isPendingMember(room, this.user.me),
 
         isRejected: isRejectedMember(room, this.user.me),
+        completed: isRoomCompleted(room),
       };
     });
 
@@ -71,4 +76,8 @@ export class RoomListComponent implements OnInit {
   }
 }
 
-export type RoomWithStatus = Room & { isPending: boolean; isRejected: boolean };
+export type RoomWithStatus = Room & {
+  isPending: boolean;
+  isRejected: boolean;
+  completed: boolean;
+};

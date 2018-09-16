@@ -26,6 +26,16 @@ export function isRejectedMember(room: Room, user: User) {
   );
 }
 
+export function isRoomCompleted(room: Room) {
+  let res = room.payouts && room.payouts.length > 0;
+  if (res) {
+    room.payouts.forEach(payout => {
+      res = res && payout.status === 'paid';
+    });
+  }
+  return res;
+}
+
 export function guid() {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)

@@ -3,3 +3,19 @@
   align-items: center;
   justify-content: center;
 }
+
+.room {
+  position: relative;
+  .corner {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 25px 25px 0;
+    position: absolute;
+    border-color: transparent;
+    border-right-color: forestgreen;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+  }
+}

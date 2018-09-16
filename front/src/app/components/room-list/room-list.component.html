@@ -1,5 +1,6 @@
 <app-card title="Room List">
-  <ng-container *ngFor="let room of rooms">
+  <div class="room"
+    *ngFor="let room of rooms">
     <button mat-stroked-button
       (click)="goToRoom(room)"
       [color]="room.isPending? 'accent' : 'primary'"
@@ -10,5 +11,9 @@
       <mat-icon>rowing</mat-icon>
       {{ room.name }}
     </button>
-  </ng-container>
+
+    <div *ngIf="room.completed"
+      matTooltip="Completed"
+      class="corner"></div>
+  </div>
 </app-card>
