@@ -35,6 +35,10 @@ export class RoomComponent implements OnInit, OnDestroy {
 
     this.room = await this.api.getRoomById(this.roomId).toPromise();
 
+    if (this.room.status === 'closed') {
+      this.router.navigateByUrl(`${this.roomId}/payout`);
+    }
+
     this.realtime.action$
       .pipe(
         takeUntil(this.unsubscribe$),
@@ -49,8 +53,15 @@ export class RoomComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(`transaction-create/${this.roomId}`);
   }
 
-  closeRoom() {
-    console.log('closing room');
+  async closeRoom() {
+    await this.api
+      .addAction({
+        type: 'CloseRoom',
+        roomId: this.roomId,
+      })
+      .toPromise();
+
+    this.router.navigateByUrl(`${this.roomId}/payout`);
   }
 
   ngOnDestroy() {
