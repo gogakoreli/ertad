@@ -16,10 +16,11 @@ export class NotificationService {
     private api: ApiService,
     private user: UserService,
   ) {
-    this.initializeRealtimeNotifications();
+    this.initializeCreateRoomSubscription();
+    this.initializePayoutSubscription();
   }
 
-  initializeRealtimeNotifications() {
+  initializeCreateRoomSubscription() {
     this.realtime.action$
       .pipe(
         filter(x => x.type === 'CreateRoom'),
@@ -34,6 +35,26 @@ export class NotificationService {
           'Show Me',
           () => {
             this.router.navigateByUrl(`${room.id}/invitation`);
+          },
+        );
+      });
+  }
+
+  initializePayoutSubscription() {
+    this.realtime.action$
+      .pipe(
+        filter(x => x.type === 'CloseRoom'),
+        switchMap(x =>
+          this.api.getRoomById(x.type === 'CloseRoom' && x.roomId),
+        ),
+        filter(x => isMember(x, this.user.me) && isNotHost(x, this.user.me)),
+      )
+      .subscribe(room => {
+        this.openSnackBar(
+          `${room.host.name} Closed ${room.name}`,
+          'Payout',
+          () => {
+            this.router.navigateByUrl(`${room.id}/payout`);
           },
         );
       });
