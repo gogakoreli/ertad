@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ApiService } from '../../api/api.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-transaction-create',
@@ -15,6 +17,8 @@ export class TransactionCreateComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
+    private api: ApiService
+    private user: UserService,
   ) {}
 
   ngOnInit() {
@@ -31,9 +35,17 @@ export class TransactionCreateComponent implements OnInit {
     });
   }
 
-  save() {
-    // TODO : save transaction
-    console.log(this.form.value);
+  async save() {
+    await this.api.addAction({
+      type: 'AddReceipt',
+      roomId: this.roomId,
+      receipt: {
+        user: this.user.me,
+        amount: this.form.value.amount,
+        imageUrl: '[fake]',
+      }
+    }).toPromise();
+
     this.router.navigateByUrl(`room/${this.roomId}`);
   }
 }
