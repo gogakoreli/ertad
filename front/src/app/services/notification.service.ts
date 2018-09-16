@@ -16,16 +16,16 @@ export class NotificationService {
     private api: ApiService,
     private user: UserService,
   ) {
-    this.initializeCreateRoomSubscription();
+    this.initializeAddGuestsSubscription();
     this.initializePayoutSubscription();
   }
 
-  initializeCreateRoomSubscription() {
+  initializeAddGuestsSubscription() {
     this.realtime.action$
       .pipe(
-        filter(x => x.type === 'CreateRoom'),
+        filter(x => x.type === 'AddGuests'),
         switchMap(x =>
-          this.api.getRoomById(x.type === 'CreateRoom' && x.roomId),
+          this.api.getRoomById(x.type === 'AddGuests' && x.roomId),
         ),
         filter(x => isMember(x, this.user.me) && isNotHost(x, this.user.me)),
       )
