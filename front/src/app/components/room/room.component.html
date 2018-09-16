@@ -11,7 +11,7 @@
           *ngIf="room.invitations[user.id] === 'accepted'">check</mat-icon>
         <mat-icon *ngIf="room.invitations[user.id] === 'pending'">waves</mat-icon>
         <mat-icon color="accent"
-          *ngIf="room.host.id == user.id">star</mat-icon>
+          *ngIf="room.host.id == user.id">home</mat-icon>
       </mat-list-item>
       <mat-divider></mat-divider>
     </ng-container>
@@ -51,14 +51,13 @@
     fxLayoutAlign="center center">
     <button mat-stroked-button
       *ngIf="room.host.id === user.me.id"
-      color="warn"
+      color="primary"
       (click)="closeRoom()">
-      <mat-icon>clear</mat-icon>
-      Close
+      <mat-icon>send</mat-icon>
+      Complete
     </button>
 
     <button mat-stroked-button
-      color="primary"
       (click)="addTransaction()">
       <mat-icon>add_box</mat-icon>
       Receipt
