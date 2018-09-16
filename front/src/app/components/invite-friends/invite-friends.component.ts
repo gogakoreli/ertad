@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatCheckbox } from '@angular/material';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -8,6 +7,12 @@ import { User } from 'src/app/api/types';
 import { ApiService } from '../../api/api.service';
 import { RealtimeService } from '../../api/realtime.service';
 import { UserService } from '../../services/user.service';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-invite-friends',
@@ -62,7 +67,9 @@ export class InviteFriendsComponent implements OnInit {
     }, {});
 
     this.form = new FormGroup({
-      roomName: new FormControl('viyot_ertad'),
+      roomName: new FormControl('', {
+        validators: [Validators.required],
+      }),
       friends: this.fb.group(friendsObject),
     });
   }
