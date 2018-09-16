@@ -4,6 +4,7 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { InvitationComponent } from './components/invitation/invitation.component';
 import { InviteFriendsComponent } from './components/invite-friends/invite-friends.component';
 import { LoginComponent } from './components/login/login.component';
+import { PayoutComponent } from './components/payout/payout.component';
 import { RoomListComponent } from './components/room-list/room-list.component';
 import { RoomComponent } from './components/room/room.component';
 import { TransactionCreateComponent } from './components/transaction-create/transaction-create.component';
@@ -41,6 +42,11 @@ const routes: Routes = [
   {
     path: ':roomId/invitation',
     component: InvitationComponent,
+    canActivate: [LoginGuard],
+  },
+  {
+    path: ':roomId/payout',
+    component: PayoutComponent,
     canActivate: [LoginGuard],
   },
   { path: '**', redirectTo: '' },
