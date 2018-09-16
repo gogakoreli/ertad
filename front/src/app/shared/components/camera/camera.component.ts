@@ -36,7 +36,7 @@ export class CameraComponent implements OnInit {
       reader.onload = (e: any) => {
         this.pictureSrc = e.target.result;
 
-        this.amount.emit(22.5);
+        this.amount.emit(31.6);
       };
 
       reader.readAsDataURL(this.picture);
