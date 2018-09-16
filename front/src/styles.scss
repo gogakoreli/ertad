@@ -9,14 +9,15 @@ body {
 }
 
 app-root {
-  padding: 5px;
+  padding: 0px 5px;
   min-height: 100%;
   router-outlet {
     display: none;
   }
   router-outlet + * {
     flex: 1;
-    padding-bottom: 80px;
+    padding-top: 20px;
+    padding-bottom: 100px;
   }
 }
 

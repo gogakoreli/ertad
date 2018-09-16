@@ -4,6 +4,9 @@
       (click)="goToRoom(room)"
       [color]="room.isPending? 'accent' : 'primary'"
       [disabled]="room.isRejected">
+
+      <mat-icon *ngIf="room.host.id === user.me.id"
+        color="accent">star</mat-icon>
       <mat-icon>rowing</mat-icon>
       {{ room.name }}
     </button>
