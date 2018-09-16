@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../../api/api.service';
 import { UserService } from '../../services/user.service';
@@ -25,7 +25,7 @@ export class TransactionCreateComponent implements OnInit {
     this.roomId = this.route.snapshot.params.roomId;
 
     this.form = this.fb.group({
-      amount: null,
+      amount: [null, Validators.required],
     });
   }
 
