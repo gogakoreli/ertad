@@ -1,43 +1,65 @@
-<app-card title="{{ room.name }}">
+<app-card *ngIf="room"
+  title="{{ room.name }}">
   <mat-list>
-    <ng-container *ngFor="let member of members">
+    <ng-container *ngFor="let user of room.users">
       <mat-list-item>
-        <mat-icon color="primary">face</mat-icon>
-        <span>{{ member.name }}</span>
+        <mat-icon color="primary"
+          *ngIf="user.name != 'Sandro'">face</mat-icon>
+        <span style="margin-left: 10px">{{ user.name }}</span>
         <div fxFlex></div>
-        <mat-icon color="primary">check</mat-icon>
+        <mat-icon color="primary"
+          *ngIf="room.invitations[user.id] === 'accepted'">check</mat-icon>
+        <mat-icon *ngIf="room.invitations[user.id] === 'pending'">waves</mat-icon>
+        <mat-icon color="accent"
+          *ngIf="room.host.id == user.id">star</mat-icon>
       </mat-list-item>
       <mat-divider></mat-divider>
     </ng-container>
   </mat-list>
 
-  <mat-card-title fxLayoutAlign="center center">
-    Transactions
+  <mat-card-title *ngIf="room.receipts?.length > 0"
+    fxLayoutAlign="center center">
+    Receipts
   </mat-card-title>
 
-  <mat-list>
-    <ng-container *ngFor="let transaction of transactions">
+  <mat-list *ngIf="room.receipts?.length > 0">
+    <ng-container *ngFor="let receipt of room.receipts">
       <mat-list-item>
         <span>
-          {{ transaction.user.name }}
+          {{ receipt.user.name }}
         </span>
         <div fxFlex></div>
         <span>
-          {{ transaction.amount }}
+          {{ receipt.amount.toFixed(2) }}
         </span>
       </mat-list-item>
       <mat-divider></mat-divider>
     </ng-container>
+    <mat-list-item>
+      <span>
+        <strong>Total</strong>
+      </span>
+      <div fxFlex></div>
+      <span style="color: #F44336">
+        <strong>{{ totalAmount(room) }}</strong>
+      </span>
+    </mat-list-item>
   </mat-list>
 
   <div fxLayout="row"
     fxLayoutGap="20px">
+    <button mat-stroked-button
+      color="warn"
+      (click)="closeRoom()">
+      <mat-icon>clear</mat-icon>
+      Close
+    </button>
 
     <button mat-stroked-button
       color="primary"
       (click)="addTransaction()">
       <mat-icon>add_box</mat-icon>
-      Add Transaction
+      Receipt
     </button>
   </div>
 </app-card>
