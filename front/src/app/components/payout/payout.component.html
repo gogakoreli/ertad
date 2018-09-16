@@ -1,0 +1,36 @@
+<app-card title="{{ room.name }}">
+  <mat-list>
+    <ng-container *ngFor="let member of members">
+      <mat-list-item>
+        <mat-icon color="primary">face</mat-icon>
+        <span>{{ member.name }}</span>
+        <div fxFlex></div>
+        <mat-icon color="primary">check</mat-icon>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </ng-container>
+  </mat-list>
+
+  <mat-list>
+    <ng-container *ngFor="let transaction of transactions">
+      <mat-list-item>
+        <span>
+          {{ transaction.user.name }}
+        </span>
+        <div fxFlex></div>
+        <span>
+          {{ transaction.amount }}
+        </span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+    </ng-container>
+  </mat-list>
+
+  <button mat-stroked-button
+    color="primary"
+    (click)="pay()">
+    <mat-icon>fingerprint</mat-icon>
+    Pay
+  </button>
+
+</app-card>
