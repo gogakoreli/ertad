@@ -1,9 +1,0 @@
-version: '3'
-services:
-  back:
-    build: ./
-    image: ertad-production-back:latest
-    container_name: ertad-production-back
-    restart: always
-    ports:
-      - '80:3500'

@@ -1,0 +1,15 @@
+version: '3'
+services:
+  front:
+    build: ./front
+    image: ertad-prod-front:latest
+    container_name: ertad-prod-front
+    restart: always
+    ports:
+      - '80:80'
+  back:
+    build: ./back
+    image: ertad-prod-back:latest
+    container_name: ertad-prod-back
+    restart: always
+    # port 3500 used by nginx
